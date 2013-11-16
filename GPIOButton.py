@@ -1,4 +1,7 @@
 #!/usr/bin/python
+#
+# Button class definition
+#
 
 import RPi.GPIO as GPIO
 import Defs
