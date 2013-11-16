@@ -37,19 +37,25 @@ class Button:
   if not (self.ButtonType == Defs.TYPE_ALT):  # alt button alone has no action
 
     if self.ButtonType == Defs.TYPE_SINGLEMODE:
-     print self.Name, " action on"
+     self.do_on_action()
 
     elif self.ButtonType == Defs.TYPE_DOUBLEMODE:
 
      if self.Mode == Defs.MODE_OFF:
-      print self.Name, "action on"
+      self.do_on_action()
       self.Mode = Defs.MODE_ON
      elif self.Mode == Defs.MODE_ON:
-      print self.Name, "action off" 
+      self.do_off_action()
       self.Mode = Defs.MODE_OFF
 
- def do_alt_action(self):
-  print self.Name, "alt action"
+ def do_on_action(self):  # to be defined at runtime
+  pass
+
+ def do_off_action(self): # to be defined at runtime
+  pass
+
+ def do_alt_action(self): # to be defined at runtime
+  pass
 
  def __init__(self, gpioid, name=str(GPIOid), hardware=Defs.PULL_DOWN, type=Defs.TYPE_SINGLEMODE):
 
