@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # Button class definition
 #
@@ -36,10 +35,10 @@ class Button:
 
   if not (self.ButtonType == Defs.TYPE_ALT):  # alt button alone has no action
 
-    if self.ButtonType == Defs.TYPE_SINGLEMODE:
+    if self.ButtonType == Defs.TYPE_ONEMODE:
      self.do_on_action()
 
-    elif self.ButtonType == Defs.TYPE_DOUBLEMODE:
+    elif self.ButtonType == Defs.TYPE_TWOMODE:
 
      if self.Mode == Defs.MODE_OFF:
       self.do_on_action()
@@ -57,7 +56,7 @@ class Button:
  def do_alt_action(self): # to be defined at runtime
   pass
 
- def __init__(self, gpioid, name=str(GPIOid), hardware=Defs.PULL_DOWN, type=Defs.TYPE_SINGLEMODE):
+ def __init__(self, gpioid, name=str(GPIOid), hardware=Defs.PULL_DOWN, type=Defs.TYPE_ONEMODE):
 
   self.HardwareType = hardware
   self.GPIOid = gpioid

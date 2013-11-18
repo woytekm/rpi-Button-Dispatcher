@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # global constant definitions for Button Dispatcher
 #
@@ -13,8 +12,8 @@ MODE_OFF = 2
 STATE_RELEASED = 0
 STATE_PRESSED = 1
 
-TYPE_SINGLEMODE = 1
-TYPE_DOUBLEMODE = 2
+TYPE_ONEMODE = 1
+TYPE_TWOMODE = 2
 TYPE_ALT = 3
 
 
