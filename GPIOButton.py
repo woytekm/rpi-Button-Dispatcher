@@ -9,7 +9,7 @@ import Defs
 class Button:
 
  HardwareType = None  # pull-up (pressed - False), pull-down (pressed - True)
- ButtonType = None    # single mode, double mode (on|off), alt
+ ButtonType = None    # single mode, dual mode(on|off), alt
  GPIOid = None        # integer - GPIO number
  State = None         # pressed, released
  Mode = None          # on, off
@@ -35,10 +35,10 @@ class Button:
 
   if not (self.ButtonType == Defs.TYPE_ALT):  # alt button alone has no action
 
-    if self.ButtonType == Defs.TYPE_ONEMODE:
+    if self.ButtonType == Defs.TYPE_SINGLEMODE:
      self.do_on_action()
 
-    elif self.ButtonType == Defs.TYPE_TWOMODE:
+    elif self.ButtonType == Defs.TYPE_DUALMODE:
 
      if self.Mode == Defs.MODE_OFF:
       self.do_on_action()
@@ -56,7 +56,7 @@ class Button:
  def do_alt_action(self): # to be defined at runtime
   pass
 
- def __init__(self, gpioid, name=str(GPIOid), hardware=Defs.PULL_DOWN, type=Defs.TYPE_ONEMODE):
+ def __init__(self, gpioid, name=str(GPIOid), hardware=Defs.PULL_DOWN, type=Defs.TYPE_SINGLEMODE):
 
   self.HardwareType = hardware
   self.GPIOid = gpioid

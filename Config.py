@@ -65,10 +65,10 @@ def ConfigReadAndApply():
        else:
         badconf = 1
 
-       if(fields[4].lower() == "onemode"):
-        btntype = Defs.TYPE_ONEMODE
-       elif (fields[4].lower() == "twomode"):
-        btntype = Defs.TYPE_TWOMODE
+       if(fields[4].lower() == "singlemode"):
+        btntype = Defs.TYPE_SINGLEMODE
+       elif (fields[4].lower() == "dualmode"):
+        btntype = Defs.TYPE_DUALMODE
        else:
         badconf = 1 
         
