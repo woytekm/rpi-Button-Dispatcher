@@ -18,42 +18,39 @@ class Button:
  def pressed(self):
 
   if GPIO.input(self.GPIOid) == True:
-
    if self.HardwareType == Defs.PULL_UP:
     return False
    elif self.HardwareType == Defs.PULL_DOWN:
     return True
 
   else:   # GPIO = 0
-
    if self.HardwareType == Defs.PULL_UP:
     return True
    elif self.HardwareType == Defs.PULL_DOWN:
     return False
 
- def do_action(self):
+ def DoAction(self):
 
   if not (self.ButtonType == Defs.TYPE_ALT):  # alt button alone has no action
 
     if self.ButtonType == Defs.TYPE_SINGLEMODE:
-     self.do_on_action()
+     self.DoOnAction(self)
 
     elif self.ButtonType == Defs.TYPE_DUALMODE:
-
      if self.Mode == Defs.MODE_OFF:
-      self.do_on_action()
+      self.DoOnAction(self)
       self.Mode = Defs.MODE_ON
      elif self.Mode == Defs.MODE_ON:
-      self.do_off_action()
+      self.DoOffAction(self)
       self.Mode = Defs.MODE_OFF
 
- def do_on_action(self):  # to be defined at runtime
+ def DoOnAction(self):  # to be defined at runtime
   pass
 
- def do_off_action(self): # to be defined at runtime
+ def DoOffAction(self): # to be defined at runtime
   pass
 
- def do_alt_action(self): # to be defined at runtime
+ def DoAltAction(self): # to be defined at runtime
   pass
 
  def __init__(self, gpioid, name=str(GPIOid), hardware=Defs.PULL_DOWN, type=Defs.TYPE_SINGLEMODE):
@@ -67,5 +64,5 @@ class Button:
 
   GPIO.setup(self.GPIOid, GPIO.IN)
 
-#end of GPIOButton.Button class definition  
+# end of GPIOButton.Button class definition  
 

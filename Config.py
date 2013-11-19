@@ -33,7 +33,6 @@ def ConfigReadAndApply():
  ConfLine = 0
  
  for cfgline in cfgfile:
-
       ConfLine += 1
       badconf = 0
 
@@ -57,7 +56,6 @@ def ConfigReadAndApply():
        print "Error in line ",ConfLine," of ",ConfigPath
 
       if(fields[0].lower() == "button"):
-
        if(fields[3].lower() == "pullup"): 
         btnhardware = Defs.PULL_UP
        elif (fields[3].lower() == "pulldown"):
@@ -69,6 +67,8 @@ def ConfigReadAndApply():
         btntype = Defs.TYPE_SINGLEMODE
        elif (fields[4].lower() == "dualmode"):
         btntype = Defs.TYPE_DUALMODE
+       elif (fields[4].lower() == "alt"):
+        btntype = Defs.TYPE_ALT
        else:
         badconf = 1 
         
@@ -101,5 +101,5 @@ def ConfigReadAndApply():
 
        Buttons.append(NewButton) 
 
-
+# end of config reading and applying for Button Dispatcher
 
