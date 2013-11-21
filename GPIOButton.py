@@ -5,6 +5,7 @@
 import RPi.GPIO as GPIO
 import Defs
 
+AltPressed = False    # global variable for telling button objects if alt button is pressed
 
 class Button:
 
@@ -15,7 +16,7 @@ class Button:
  Mode = None          # on, off
  Name = None          # button nickname - used in script calls
  
- def pressed(self):
+ def Pressed(self):
 
   if GPIO.input(self.GPIOid) == True:
    if self.HardwareType == Defs.PULL_UP:
@@ -31,9 +32,14 @@ class Button:
 
  def DoAction(self):
 
+  global AltPressed
+
   if not (self.ButtonType == Defs.TYPE_ALT):  # alt button alone has no action
 
-    if self.ButtonType == Defs.TYPE_SINGLEMODE:
+    if AltPressed:
+     self.DoAltAction(self)
+
+    elif self.ButtonType == Defs.TYPE_SINGLEMODE:
      self.DoOnAction(self)
 
     elif self.ButtonType == Defs.TYPE_DUALMODE:

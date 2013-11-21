@@ -5,6 +5,7 @@
 
 import Defs
 import Config
+import GPIOButton
 from daemon import Daemon
 
 import sys
@@ -13,18 +14,28 @@ import subprocess
 
 class ButtonDispatcher(Daemon):
   def run(self):
+
    while True:
+
     for button in Config.Buttons:
-     if button.pressed():
+     if button.Pressed():
       if button.State == Defs.STATE_RELEASED:
        button.State = Defs.STATE_PRESSED
        button.DoAction()
+      if button.ButtonType == Defs.TYPE_ALT:
+       GPIOButton.AltPressed = True
+       print "alt pressed"
      else:
       if button.State == Defs.STATE_PRESSED:
        button.State = Defs.STATE_RELEASED
+       if button.ButtonType == Defs.TYPE_ALT:
+        GPIOButton.AltPressed = False
+        print "alt released"
+
     time.sleep(0.05)
 
-Config.ConfigReadAndApply()
+
+Config.ConfigReadAndApply()  # read in the config file, initialize GPIO and button objects
 
 if Config.Buttons:
 
