@@ -24,13 +24,11 @@ class ButtonDispatcher(Daemon):
        button.DoAction()
       if button.ButtonType == Defs.TYPE_ALT:
        GPIOButton.AltPressed = True
-       print "alt pressed"
      else:
       if button.State == Defs.STATE_PRESSED:
        button.State = Defs.STATE_RELEASED
        if button.ButtonType == Defs.TYPE_ALT:
         GPIOButton.AltPressed = False
-        print "alt released"
 
     time.sleep(0.05)
 
