@@ -1,0 +1,38 @@
+
+This module provides quick and easy access to Raspberry Pi GPIO buttons
+
+
+ * You can define three types of GPIO buttons:
+
+   - Single mode button - do defined action every time button is pressed
+
+   - Dual mode button   - do on/off actions in 0-1-0-1 pattern
+
+   - Alt button         - modify action of other buttons
+                          (alt+other button = "alt" action of other button)
+
+ * You can define two types of actions. If you want to define a button named "Green",
+   following actions can be attached to it:
+
+  - Internal action - execute python routine [button_name][button_mode]Action()
+                      ie: GreenOnAction(), GreenOffAction(), GreenAltAction()
+
+  - External action - execute external script [button_name]_[button_mode]_action
+                      ie: /etc/Buttons/actions/Green_on_action
+
+ * ButtonDispatcher can be initialized in two ways:
+
+  - From config file
+
+  - By initializing ButtonDispatcher object "manually" in python code
+
+
+General usage examples are in dispatcher-example1.py, dispatcher-example2.py
+
+Two programs are attached as a practical usage examples:
+
+ - TriButtonRadio - internet radio receiver using three GPIO buttons to control mpg123
+
+ - ButtonDaemon - daemon which executes different shell scripts when GPIO buttons are pressed
+
+===

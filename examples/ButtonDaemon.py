@@ -1,68 +1,35 @@
 #!/usr/bin/python
-#
-# Button Dispatcher - main program
-#
 
-import Defs
-import Config
-import GPIOButton
-from daemon import Daemon
+""" ButtonDaemon - daemon which will execute different shell scripts when GPIO buttons are pressed """
 
-import sys
+from button_dispatcher import *
+from daemon import daemon
 import time
-import subprocess
+import sys
 
-class ButtonDispatcher(Daemon):
+class ButtonDispatcherDaemon(Daemon):
+
   def run(self):
 
+   ConfigPath = "ButtonDaemon.cfg"
+
+   MyDispatcher = ButtonDispatcher()
+   MyDispatcher.InitFromFile(ConfigPath)
+
+   if not MyDispatcher.Buttons:
+    print "No button definititions loaded! Nothing to do - exit."
+    sys.exit()
+
    while True:
-
-    for button in Config.Buttons:
-     if button.Pressed():
-      if button.State == Defs.STATE_RELEASED:
-       button.State = Defs.STATE_PRESSED
-       button.DoAction()
-      if button.ButtonType == Defs.TYPE_ALT:
-       GPIOButton.AltPressed = True
-     else:
-      if button.State == Defs.STATE_PRESSED:
-       button.State = Defs.STATE_RELEASED
-       if button.ButtonType == Defs.TYPE_ALT:
-        GPIOButton.AltPressed = False
-
+    MyDispatcher.DispatchButtons()
     time.sleep(0.05)
 
 
-Config.ConfigReadAndApply()  # read in the config file, initialize GPIO and button objects
-
-if Config.Buttons:
-
- def DoOnAction(self):
-  RunScript = Config.ScriptPath+"/"+self.Name+"_on_action.sh"
-  subprocess.call(RunScript)
- 
- def DoOffAction(self):
-  RunScript = Config.ScriptPath+"/"+self.Name+"_off_action.sh"
-  subprocess.call(RunScript)
-
- def DoAltAction(self):
-  RunScript = Config.ScriptPath+"/"+self.Name+"_alt_action.sh"
-  subprocess.call(RunScript)
- 
- for button in Config.Buttons:
-  button.DoOnAction = DoOnAction
-  button.DoOffAction = DoOffAction
-  button.DoAltAction = DoAltAction
-
-else:
-  print "No button definititions! Nothing to do - exit."
-
 PIDFILE = '/var/run/button_dispatcher.pid'
-LOGFILE = '/var/log/button_dispatcher.log'
 
 if __name__ == "__main__":
 
-        daemon = ButtonDispatcher(PIDFILE)
+        daemon = ButtonDispatcherDaemon(PIDFILE)
 
         if len(sys.argv) == 2:
 
@@ -102,4 +69,5 @@ if __name__ == "__main__":
         else:
                 print "usage: %s start|stop|restart|status" % sys.argv[0]
                 sys.exit(2)
+
 
