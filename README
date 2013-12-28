@@ -11,11 +11,15 @@ This module provides quick and easy access to Raspberry Pi GPIO buttons
    - Alt button         - modify action of other buttons
                           (alt+other button = "alt" action of other button)
 
+   - Press duration sensitivity - Single and Dual mode buttons can have additional action hooked up to
+                                "long press" event
+
  * You can define two types of actions. If you want to define a button named "Green",
    following actions can be attached to it:
 
-  - Internal action - execute python routine [button_name][button_mode]Action()
-                      ie: GreenOnAction(), GreenOffAction(), GreenAltAction()
+  - Internal action - call python routine [button_name][button_mode]Action()
+                      ie: GreenOnAction(), GreenOffAction(), GreenAltAction(), 
+                          and GreenOnLongAction() - for "long press" event
 
   - External action - execute external script [button_name]_[button_mode]_action
                       ie: /etc/Buttons/actions/Green_on_action
