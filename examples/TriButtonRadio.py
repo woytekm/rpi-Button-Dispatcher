@@ -34,10 +34,10 @@ GPIO.setmode(GPIO.BCM)
 
 MyDispatcher.GPIOInited = True
 
-PlayerControlButton = GPIOButton(22,"PlayerControl",PULL_UP, TYPE_DUALMODE, ACTION_INTERNAL)
+PlayerControlButton = GPIOButton(23,"PlayerControl",PULL_UP, TYPE_DUALMODE, ACTION_INTERNAL, LONG_ACTION)
 MyDispatcher.Buttons.append(PlayerControlButton)
 
-NextStationButton = GPIOButton(23,"NextStation",PULL_UP, TYPE_SINGLEMODE, ACTION_INTERNAL)
+NextStationButton = GPIOButton(22,"NextStation",PULL_UP, TYPE_SINGLEMODE, ACTION_INTERNAL)
 MyDispatcher.Buttons.append(NextStationButton)
 
 AltButton = GPIOButton(24,"Alt",PULL_UP, TYPE_ALT)
@@ -55,6 +55,18 @@ def PlayerControlOnAction():
   PlayerMessage("Player on. Current station: "+stations[stations_index].replace("\n",""))
   player_on = True
 
+def PlayerControlOnLongAction():
+  global mpg123,mpg123pipe,stations,player_on
+
+  if player_on:
+    mpg123pipe.write("quit\n")
+    mpg123pipe.flush()
+    time.sleep(1)
+    mpg123.terminate()
+    mpg123pipe.close()
+    player_on = False
+  PlayerMessage("Quit") 
+  sys.exit()
 
 def PlayerControlOffAction():
   global mpg123,mpg123pipe,player_on
@@ -130,5 +142,4 @@ while True:
  except:
   pass
 
- time.sleep(0.02)
 

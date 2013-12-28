@@ -22,7 +22,6 @@ class ButtonDispatcherDaemon(Daemon):
 
    while True:
     MyDispatcher.DispatchButtons()
-    time.sleep(0.05)
 
 
 PIDFILE = '/var/run/button_dispatcher.pid'

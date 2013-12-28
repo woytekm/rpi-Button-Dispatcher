@@ -18,5 +18,4 @@ if not MyDispatcher.Buttons:
 
 while True:
  MyDispatcher.DispatchButtons()
- time.sleep(0.05)
 
