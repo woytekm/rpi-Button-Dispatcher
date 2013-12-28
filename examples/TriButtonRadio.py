@@ -4,6 +4,7 @@
 TriButtonRadio: ButtonDispatcher usage example 3 - control mpg123 as net radio with three buttons
 
   - button1 - radio on/off
+  - button1 long press - quit
   - button2 - next station
   - alt+button1 / alt+button2 - volume up/down
 
